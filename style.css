@@ -384,6 +384,9 @@ img{
 
 @media (min-width:1024px) {
     
+    .overview{
+        margin-top: 1rem;
+    }
     .forecast{
         justify-content: flex-end;
         display:flex;
