@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Now</title>
+    <link rel ="stylesheet" href = "style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,500;0,600;1,600;0,700&family=Bricolage+Grotesque:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav-bar">
+       <a href="/" class="nav__logo"><img src="images/logo.svg" alt="Weather Now logo"></a>
+       <button class="nav__btn">
+        <img src="images/icon-units.svg" alt="">
+        Units
+        <img src="images/icon-dropdown.svg" alt="">
+       </button>
+    </nav>
+    <header class="hero">
+        <h1>How's the sky looking today?</h1>
+    </header>
+    <section class="search-section" role="search">
+        <div class="search-wrapper">
+            <div class="search-input-wrapper">
+                <img src="images/icon-search.svg" alt="">
+                <input type="text" class="search-section__input" placeholder="Search for a place...">
+            </div>
+        
+            <button type="button" class="search-button" id="search-btn">Search</button>
+        </div>
+    </section>
+    <div class="main-content">
+        <div class="weather-left-content">
+            <div class="weather-card">
+                <div  class="weather-card__left">
+                <h2>Berlin, Germany</h2>
+                <p>Tuesday, Aug 5, 2025</p>
+                </div>
+                <div class="weather-card__right">
+                    <img src="images/icon-sunny.webp" alt="Sunny">
+                    <p class="tp">68°</p>
+                </div>
+            </div>
+            <div class="overview">
+                <div class="overview__cards">
+                    <p class="fh">Feels Like</p>
+                    <p class="ft">64°</p>
+                </div>
+                 <div class="overview__cards">
+                    <p class="fh">Humidity</p>
+                    <p class="ft">48%</p>
+                </div>
+                 <div class="overview__cards">
+                    <p class="fh">Wind</p>
+                    <p class="ft">9 mph</p>
+                </div>
+                 <div class="overview__cards">
+                    <p class="fh">Precipitation</p>
+                    <p class="ft">0 in</p>
+                </div>
+            </div>
+            <div class="forecast">
+                <h3>Daily forecast</h3>
+                <div class="forecast-container">
+                    <div class="forecast-container__cards">
+                    <p class="day">Tue</p>
+                    <img src="/images/icon-rain.webp" alt="Rainy">
+                    <div class="temp-range">
+                        <p class="high">68°</p>
+                        <p class="low">57°</p>
+                    </div>
+                </div>
+                <div class="forecast-container__cards">
+                    <p class="day">Wed</p>
+                    <img src="/images/icon-drizzle.webp" alt="Drizzle">
+                    <div class="temp-range">
+                        <p class="high">70°</p>
+                        <p class="low">59°</p>
+                    </div>
+                </div>
+                <div class="forecast-container__cards">
+                    <p class="day">Thu</p>
+                    <img src="/images/icon-sunny.webp" alt="Sunny">
+                    <div class="temp-range">
+                        <p class="high">75°</p>
+                        <p class="low">57°</p>
+                    </div>
+                </div>
+                <div class="forecast-container__cards">
+                    <p class="day">Fri</p>
+                    <img src="/images/icon-partly-cloudy.webp" alt="Partly Cloudy">
+                    <div class="temp-range">
+                        <p class="high">77°</p>
+                        <p class="low">55°</p>
+                    </div>
+                </div>
+                <div class="forecast-container__cards">
+                    <p class="day">Sat</p>
+                    <img src="/images/icon-storm.webp" alt="Stormy">
+                    <div class="temp-range">
+                        <p class="high">70°</p>
+                        <p class="low">59°</p>
+                    </div>
+                </div>
+                <div class="forecast-container__cards">
+                    <p class="day">Sun</p>
+                    <img src="/images/icon-snow.webp" alt="Snowy">
+                    <div class="temp-range">
+                        <p class="high">77°</p>
+                        <p class="low">61°</p>
+                    </div>
+                </div>
+                <div class="forecast-container__cards">
+                    <p class="day">Mon</p>
+                    <img src="/images/icon-fog.webp" alt="Foggy">
+                    <div class="temp-range">
+                        <p class="high">75°</p>
+                        <p class="low">59°</p>
+                    </div>
+                </div>
+                </div>
+
+                
+            </div>
+        
+        </div>
+        <div class="hourly-forecast">
+            <div class="hourly-forecast__header">
+                <p>Hourly forecast</p>
+                <button class="hourly-forecast__btn">Tuesday
+                    <img src="/images/icon-dropdown.svg" alt="">
+                </button>
+            </div>
+            <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-overcast.webp" alt="Overcast">
+                    <p>3 PM</p>
+                </div>
+                <p class="temp">68°</p>
+            </div>
+            
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-partly-cloudy.webp" alt="Partly Cloudy">
+                    <p>4 PM</p>
+                </div>
+                <p class="temp">68°</p>
+            </div>
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-sunny.webp" alt="Sunny">
+                    <p>5 PM</p>
+                </div>
+                <p class="temp">68°</p>
+            </div>
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-overcast.webp" alt="Overcast">
+                    <p>6 PM</p>
+                </div>
+                <p class="temp">66°</p>
+            </div>
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-snow.webp" alt="Snowy">
+                    <p>7 PM</p>
+                </div>
+                <p class="temp">66°</p>
+            </div>
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-fog.webp" alt="Foggy">
+                    <p>8 PM</p>
+                </div>
+                <p class="temp">64°</p>
+            </div>
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-snow.webp" alt="Snowy">
+                    <p>9 PM</p>
+                </div>
+                <p class="temp">63°</p>
+            </div>
+             <div class="hourly-forecast__cards">
+                <div class="icon-time">
+                    <img src="/images/icon-overcast.webp" alt="Overcast">
+                    <p>10 PM</p>
+                </div>
+                <p class="temp">63°</p>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
