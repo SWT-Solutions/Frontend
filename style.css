@@ -5,9 +5,7 @@
     box-sizing: border-box; 
 }
 
-html{
-    overflow-x: hidden;
-}
+
 :root{
     --color-neutral-900:hsl(243, 96%, 9%);
     --color-neutral-800:hsl(243, 27%, 20%);
@@ -252,7 +250,7 @@ img{
     background-color: var(--color-neutral-800);
     gap: 0.75rem;
     align-items: center;
-    padding: 1rem 0;
+    padding: 0.75rem 0.5rem;
     border-radius: 0.75rem;
     
 }
@@ -300,6 +298,13 @@ img{
     border-radius: 1rem;
    
 }
+.hourly-forecast-container{
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+        height: fit-content;
+        
+    }
 .hourly-forecast__header{
     display:flex;
     justify-content: space-between;
@@ -317,16 +322,20 @@ img{
     display:flex;
     align-items: center;
     gap: 0.875rem;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
     justify-content: space-between;
     background-color:  var(--color-neutral-600);
     border: 1px solid var(--color-neutral-600);
     color: var(--color-neutral-200);
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font: size 0.875rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
     letter-spacing: 1px;
     font-weight: 400;
     cursor: pointer;
+    transition: border-radius 0.2s ease;
 }
 .hourly-forecast__header p{
     font-family: var(--font-primary);
@@ -346,6 +355,7 @@ img{
 .icon-time{
     display:flex;
     align-items: center;
+    gap:5px;
 }
 .icon-time img{
     width: auto;
@@ -371,6 +381,49 @@ img{
     font-style: normal;  
 }
 
+/*Hourly Forecast DropDown*/
+.dropdown-wrapper{
+    position: relative;
+    width: fit-content;
+}
+
+.dropdown-menu{
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--color-neutral-800);
+    z-index: 10;
+    width: 100%;
+}
+
+.dropdown-menu.active{
+    display: block;
+}
+
+.dropdown-item{
+    color: var(--color-neutral-200);
+    font-size:0.875rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+
+}
+.dropdown-item:hover{
+    background-color: var(--color-neutral-600);
+}
+
+.hourly-forecast__btn.dropdown-open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+
+
+
+
 /*Desktop Version*/
 @media (min-width:1024px) {
     .main-content{
@@ -378,18 +431,28 @@ img{
         height: 100%;
     }
     
+    .weather-card{
+        height: 300px;
+        flex-direction: row;
+         background: url('/images/bg-today-large.svg') center /cover no-repeat;
+         justify-content: space-between;
+    }
+    .weather-card__left{
+        align-items: flex-start;
+    }
+    .weather-card__left p{
+        font-size: 14px;
+    }
+
 }
 
-
 @media (min-width:1024px) {
-    
-    .overview{
-        margin-top: 1rem;
-    }
     .forecast{
-        justify-content: flex-end;
-        display:flex;
+        display: flex;
+        flex-direction: column;
         flex: 1;
+        justify-content: flex-end;
+        
     }
     
 }
@@ -407,4 +470,78 @@ img{
     .forecast-container{
         grid-template-columns:repeat(7,1fr);
     }
+    .overview__cards{
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        
+    }
+    .hourly-forecast-container{
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+        height: fit-content;
+        
+    }
+    .icon-time{
+    display:flex;
+    align-items: center;
+    gap:5px;
+}
+.icon-time img{
+    width: auto;
+    height: 2rem;
+}
+
+.icon-time p{
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    color: var(--color-neutral-0);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-left: 0.5rem;
+}
+
+.temp{
+    font-family: var(--font-primary);
+    font-size: 0.75rem;
+    color: var(--color-neutral-200);
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-left: 0.5rem; 
+    font-style: normal;  
+}
+.dropdown-wrapper{
+    position: relative;
+    width: 140px;
+
+}
+.dropdown-menu{
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background-color: var(--color-neutral-600);
+    z-index: 10;
+}
+.dropdown-menu.active{
+    display: block;
+}
+.dropdown-item{
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    color: var(--color-neutral-0);
+    font-size:0.875rem;
+    letter-spacing: 1px;
+}
+
+.dropdown-item:hover{
+    background-color: var(--color-neutral-600);
+}
+
+
+
+
+
 }

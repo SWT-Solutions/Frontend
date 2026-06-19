@@ -25,6 +25,7 @@
             <div class="search-input-wrapper">
                 <img src="images/icon-search.svg" alt="">
                 <input type="text" class="search-section__input" placeholder="Search for a place...">
+                <ul class="city-suggestion"></ul>
             </div>
         
             <button type="button" class="search-button" id="search-btn">Search</button>
@@ -44,20 +45,20 @@
             </div>
             <div class="overview">
                 <div class="overview__cards">
-                    <p class="fh">Feels Like</p>
-                    <p class="ft">64°</p>
+                    <p class="fh" >Feels Like</p>
+                    <p class="ft" id="feels-like">64°</p>
                 </div>
                  <div class="overview__cards">
-                    <p class="fh">Humidity</p>
-                    <p class="ft">48%</p>
+                    <p class="fh" >Humidity</p>
+                    <p class="ft" id="humidity">48%</p>
                 </div>
                  <div class="overview__cards">
-                    <p class="fh">Wind</p>
-                    <p class="ft">9 mph</p>
+                    <p class="fh" >Wind</p>
+                    <p class="ft" id="wind">9 mph</p>
                 </div>
                  <div class="overview__cards">
-                    <p class="fh">Precipitation</p>
-                    <p class="ft">0 in</p>
+                    <p class="fh" >Precipitation</p>
+                    <p class="ft" id="precipitation">0 in</p>
                 </div>
             </div>
             <div class="forecast">
@@ -128,11 +129,15 @@
         <div class="hourly-forecast">
             <div class="hourly-forecast__header">
                 <p>Hourly forecast</p>
-                <button class="hourly-forecast__btn">Tuesday
+                <div class="dropdown-wrapper">
+                    <button class="hourly-forecast__btn">Tuesday
                     <img src="/images/icon-dropdown.svg" alt="">
                 </button>
+                <div class="dropdown-menu"></div>
+                </div>
             </div>
-            <div class="hourly-forecast__cards">
+            <div class =hourly-forecast-container>
+                <div class="hourly-forecast__cards">
                 <div class="icon-time">
                     <img src="/images/icon-overcast.webp" alt="Overcast">
                     <p>3 PM</p>
@@ -189,8 +194,9 @@
                 </div>
                 <p class="temp">63°</p>
             </div>
+            </div>
         </div>
-        
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
