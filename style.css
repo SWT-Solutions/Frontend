@@ -111,6 +111,7 @@ img{
     
 }
 
+
 .search-input-wrapper input::placeholder{
     color: var(--color-neutral-300);
     font-size: var(--font-size-body);
@@ -540,8 +541,31 @@ img{
     background-color: var(--color-neutral-600);
 }
 
+.search-suggestion{
+    list-style: none;
+    background-color: var(--color-neutral-700);
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    overflow-y: auto;
+    display: none;
+    width: 100%;
+}
+
+.search-suggestion.active{
+    display: block;
 
 
+}
 
+.search-suggestion li{
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    color: var(--color-neutral-0);
+    font-size: var(--font-primary);
+}
+
+.search-suggestion:hover{
+    background-color: var(--color-neutral-600);
+}
 
 }

@@ -28,8 +28,11 @@ const hourlyForecastContainer = document.querySelector('.hourly-forecast-contain
 const dropDownButton = document.querySelector(".hourly-forecast__btn");
 const dropDownMenu = document.querySelector('.dropdown-menu');
 
-//console.log('dropdownButton:', dropdownButton);
-//console.log('dropdownMenu:', dropdownMenu);
+//suggestion List
+const searchSuggestion = document.querySelector('.search-suggestion');
+
+let debounceTimer;
+
 
 
 
@@ -46,7 +49,16 @@ searchButton.addEventListener('click', async function(){
 });
 //search input event listner 
 searchInput.addEventListener('input', function(event){
-
+    clearTimeout(debounceTimer);
+    const city = searchInput.value.trim();
+    if (city < 3){
+        searchSuggestion.classList.remove('active');
+        return;
+    }
+    debounceTimer = setTimeout(function(){
+        fetchCitySuggestions(city);
+    }, 400)
+     
 });
 
 //search input listner whenenter is clicked on the keybard
@@ -166,9 +178,14 @@ function populateDropDown(data){
         item.addEventListener('click', function(){
             updateHourlyForecast(day.hour);
             dropDownButton.firstChild.textContent = dayName;
-            dropDownMenu.classList.add('active');
+            dropDownMenu.classList.remove('active');
         });
         dropDownMenu.appendChild(item);
     })
 
+}
+
+//fetch city suggestions
+async function fetchCitySuggestions(city) {
+    
 }
