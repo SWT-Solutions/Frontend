@@ -2,6 +2,12 @@
 const API_KEY ='af02f5d4e836499494c73235261206';
 const BASE_URL = 'https://api.weatherapi.com/v1';
 
+let debounceTimer;
+let tempUnit = 'metric';
+let windSpeedUnit = 'metric';
+let precipitationUnit = 'metric';
+let currentWeatherData = null;
+
 //Search ELements
 const searchInput = document.querySelector('.search-section__input');
 const searchButton = document.querySelector('.search-button');
@@ -24,14 +30,25 @@ const dailyForecastContainer = document.querySelector('.forecast-container');
 //Hourly Forecast Elements
 const hourlyForecastContainer = document.querySelector('.hourly-forecast-container');
 
-//dropdown inside button
+//dropdown inside Hourly button
 const dropDownButton = document.querySelector(".hourly-forecast__btn");
 const dropDownMenu = document.querySelector('.dropdown-menu');
+
+//dropdown Inside Unit Button
+const navBtn = document.querySelector('.nav__btn');
+const unitMenu = document.querySelector('.unit-menu');
+const unitToggle = document.querySelector('#unit-toggle');
+
+
+//Add Listner
+navBtn.addEventListener('click', function(){
+    navBtn.classList.toggle('unit-wrapper-open');
+    unitMenu.classList.toggle('active');
+});
 
 //suggestion List
 const searchSuggestion = document.querySelector('.search-suggestion');
 
-let debounceTimer;
 
 
 
@@ -76,6 +93,20 @@ dropDownButton.addEventListener('click', function(){
     dropDownButton.classList.toggle('dropdown-open')
 })
 
+//Click Listner to Change Unit Measurement
+unitToggle.addEventListener('click', function(){
+    if(currentUnit === 'metric'){
+        currentUnit = 'imperial';
+        unitToggle.textContent  = 'Switch to Metric';
+    } else{
+        currentUnit ='metric';
+        unitToggle.textContent = 'Switch to Imperial'
+    }
+    updateCurrentWeather(currentWeatherData);
+    updateMetrics(currentWeatherData);
+    updateDailyForecast(currentWeatherData);
+    updateHourlyForecast(currentWeatherData.forecast.forecastday[0].hour);
+})
 
 
 //function  to fetch weeather data
@@ -84,7 +115,7 @@ async function getWeather(city){
         const url = `${BASE_URL}/forecast.json?key=${API_KEY}&q=${city}&days=7&aqi=no&alerts=no`;
         const response = await fetch(url);
         const data = await response.json();
-
+        currentWeatherData = data;
         if (data.error){
             throw new Error(data.error.message);
         }
@@ -105,21 +136,54 @@ function updateCurrentWeather(data){
     cityName.textContent= `${data.location.name}, ${data.location.country}`;
     weatherDate.textContent = data.location.localtime
     weatherIcon.src =data.current.condition.icon;
-    weatherTemp.textContent =`${data.current.temp_c}°`;
+    if (tempUnit === 'metric'){
+        weatherTemp.textContent =`${data.current.temp_c}°`;
+    } else{
+        weatherTemp.textContent =`${data.current.temp_f}°`;
+    }
 }
 //update weather metrics based on weaather card
 function updateMetrics(data){
-    feelsLikeValue.textContent= `${data.current.feelslike_c}°`;
-    humidityValue.textContent =`${data.current.humidity} %`;
-    windValue.textContent = `${data.current.wind_mph} mph`;
-    precipitationValue.textContent = `${data.current.precip_in} in`;
+    humidityValue.textContent =`${data.current.humidity} %`
+    if (windSpeedUnit === 'metric'){
+        windValue.textContent = `${data.current.wind_kph} kph`;
+    }
+    else{
+        windValue.textContent = `${data.current.wind_mph} mph`;
+    }
+    if (precipitationUnit === 'metric'){
+        precipitationValue.textContent = `${data.current.precip_mm} mm`;
+    } else{
+        precipitationValue.textContent = `${data.current.precip_in} in`;
+    }
+    if (tempUnit === 'metric'){
+        feelsLikeValue.textContent = `${data.current.feelslike_c}°`;
+    } else{
+        feelsLikeValue.textContent = `${data.current.feelslike_f}°`;
+    }
 }
+
+
+
+
+
 //update daily  forecast data values
 function updateDailyForecast(data){
     //clear all dummy data
+
     dailyForecastContainer.innerHTML= '';
+    
     //loop through each forecas data and insert updated value
     data.forecast.forecastday.forEach(function(day) {
+    let high;
+    let low;
+    if(tempUnit === 'metric'){
+        high = day.day.maxtemp_c;
+        low = day.day.mintemp_c
+    } else{
+        high =day.day.maxtemp_f;
+        low = day.day.mintemp_f;
+    }
         const card = document.createElement('div');
         card.className = 'forecast-container__cards'
         const date = new Date(day.date);
@@ -128,16 +192,19 @@ function updateDailyForecast(data){
         <p class = "day">${dayName}</p>
         <img src ="${day.day.condition.icon}" alt ="${day.day.condition.text}">
         <div class="temp-range">
-            <p class ="high">${day.day.maxtemp_c}°</p>
-            <p class ="low">${day.day.mintemp_c}°</p>
+            <p class ="high">${high}°</p>
+            <p class ="low">${low}°</p>
             </div>`;
+    
     dailyForecastContainer.appendChild(card);
     });
 }
 //update hourly forecast data values
 function updateHourlyForecast(hours){
     //clear all dummy data
+
     hourlyForecastContainer.innerHTML = ''
+    
     hours.slice(0,8).forEach(function(hour){
     const card = document.createElement('div');
     card.classList.add('hourly-forecast__cards');
@@ -149,11 +216,21 @@ function updateHourlyForecast(hours){
         }
 
     );
+    
+    let hourTemp;
+    if(tempUnit === 'metric'){
+        hourTemp = hour.temp_c;
+    } else {
+        hourTemp = hour.temp_f;
+    }
     card.innerHTML =`
-    <div class =icon-time>
-        <img src="${hour.condition.icon}" alt="${hour.condition.text}"
-        <p>${formattedTime} </div>
-        <p class="temp"> ${hour.temp_c}°</p>`;
+    <div class ="icon-time">
+        <img src="${hour.condition.icon}" alt="${hour.condition.text}">
+        <p>${formattedTime}
+    </div>
+        <p class="temp"> ${hourTemp}°</p>`;
+        
+ 
     hourlyForecastContainer.appendChild(card);
     })
 }
@@ -187,5 +264,40 @@ function populateDropDown(data){
 
 //fetch city suggestions
 async function fetchCitySuggestions(city) {
-    
+    try{
+        const url =`${BASE_URL}/search.json?key=${API_KEY}&q=${city}`;
+        const response =  await fetch(url);
+        const data = await response.json();
+        //clear suggestions after response
+
+        searchSuggestion.innerHTML = '';
+        if (data.length === 0){
+            searchSuggestion.classList.remove('active');
+            return;
+        }
+
+        data.forEach(function(city){
+            const item = document.createElement('li');
+            item.textContent = `${city.name}, ${city.country}`;
+            searchSuggestion.appendChild(item);
+
+        //add click  fucntion
+        item.addEventListener('click' ,function(){
+            searchInput.value = `${city.name}, ${city.country}`;
+            searchSuggestion.classList.remove('active');
+            getWeather(city.name);
+        });
+
+
+
+
+
+        });
+        searchSuggestion.classList.add('active');
+        
+
+    }
+    catch(error){
+        console.error("Error Fetching Suggestions", error);
+    }
 }

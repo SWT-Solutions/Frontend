@@ -11,23 +11,39 @@
 <body>
     <nav class="nav-bar">
        <a href="/" class="nav__logo"><img src="images/logo.svg" alt="Weather Now logo"></a>
-       <button class="nav__btn">
-        <img src="images/icon-units.svg" alt="">
-        Units
-        <img src="images/icon-dropdown.svg" alt="">
-       </button>
+       <div class="unit-wrapper">
+            <button class="nav__btn">
+            <img src="images/icon-units.svg" alt="">
+            Units
+            <img src="images/icon-dropdown.svg" alt="">
+            </button>
+            <div class="unit-menu">
+                <div class="unit-item" id="unit-toggle">Switch to Imperial</div>
+                <p class ="unit-section-label">Temperature</p>
+                <div class = "unit-option" data-unit ="temp" data-value="metric">Celsius (°C)<span class ="Checkmark">✓</span></div>
+                <div class = "unit-option" data-unit ="temp" data-value="imperial">Fahrenheit (°F) <span class ="Checkmark">✓</span></div>
+                <p class ="unit-section-label">Wind Speed</p>
+                <div class = "unit-option" data-unit ="wind" data-value="metric">kph<span class ="Checkmark">✓</span></div>
+                <div class = "unit-option" data-unit ="wind" data-value="imperial">mph<span class ="Checkmark">✓</span></div>
+                <p class ="unit-section-label">Precipitation</p>
+                <div class = "unit-option" data-unit ="precipitation" data-value="metric">Millimeters (mm)<span class ="Checkmark">✓</span></div>
+                <div class = "unit-option" data-unit ="precipitation" data-value="imperial">Inches (in)<span class ="Checkmark">✓</span></div>
+            </div>
+       </div>
+       
     </nav>
     <header class="hero">
         <h1>How's the sky looking today?</h1>
     </header>
     <section class="search-section" role="search">
         <div class="search-wrapper">
+        <div class="search-input-group">
             <div class="search-input-wrapper">
                 <img src="images/icon-search.svg" alt="">
                 <input type="text" class="search-section__input" placeholder="Search for a place...">
-                <ul class="search-suggestion"></ul>
             </div>
-        
+            <ul class="search-suggestion"></ul>
+        </div>
             <button type="button" class="search-button" id="search-btn">Search</button>
         </div>
     </section>
