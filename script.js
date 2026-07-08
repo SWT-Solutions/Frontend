@@ -57,11 +57,7 @@ unitOptions.forEach(function(option){
         if(unitType === 'precipitation'){
             precipitationUnit = unitValue;
         }
-        unitOptions.forEach(function(opt){
-            if(opt.dataset.unit === unitType){
-                opt.querySelector('.Checkmark').textContent= opt.dataset.value === unitValue ? '✓' : '';
-            }
-        })
+        updateCheckMarks();        
         if(currentWeatherData){
             updateCurrentWeather(currentWeatherData);
             updateMetrics(currentWeatherData);
@@ -337,4 +333,20 @@ async function fetchCitySuggestions(city) {
     catch(error){
         console.error("Error Fetching Suggestions", error);
     }
+}
+
+//update checkmark
+function updateCheckMarks(){
+    unitOptions.forEach((opt)=>{
+        const checkmark = document.querySelector('.checkmark');
+        if(opt.dataset.unit === 'temp'){  
+            checkmark.textContent = opt.dataset.value = tempUnit ? '✓' : '';
+        }
+        if(opt.dataset.unit === 'wind'){
+            checkmark.textContent = opt.dataset.value = windSpeedUnit? '✓': '';
+        }
+        if(opt.dataset.unit === 'precipitation'){
+            checkmark.textContent = opt.dataset.value = precipitationUnit? '✓': '';
+        }
+    })
 }

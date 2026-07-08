@@ -499,13 +499,13 @@ img{
     font-family:var(--font-primary);
     font-size: 0.75rem;
     color: var(--color-neutral-300);
-    padding: 1rem 0.5rem 0.25rem;
+    padding: 0.5rem 0.5rem 0.25rem;
     border-top: 1px solid var(--color-neutral-600);
     letter-spacing: 1px;
 }
 .unit-section-label:first-of-type{
     border-top: none;
-    margin-top: 5px;
+    
 }
 .unit-option{
     font-family:var(--font-primary);
