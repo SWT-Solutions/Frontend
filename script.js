@@ -39,6 +39,37 @@ const navBtn = document.querySelector('.nav__btn');
 const unitMenu = document.querySelector('.unit-menu');
 const unitToggle = document.querySelector('#unit-toggle');
 
+//Unit Option Elements
+const unitOptions = document.querySelectorAll('.unit-option');
+
+
+//addlistner to unit options
+unitOptions.forEach(function(option){
+    option.addEventListener('click', function(){
+        const unitType = option.dataset.unit;
+        const unitValue = option.dataset.value;
+        if (unitType === 'temp'){
+            tempUnit = unitValue;
+        }
+        if(unitType === 'wind'){
+            windSpeedUnit = unitValue;
+        }
+        if(unitType === 'precipitation'){
+            precipitationUnit = unitValue;
+        }
+        unitOptions.forEach(function(opt){
+            if(opt.dataset.unit === unitType){
+                opt.querySelector('.Checkmark').textContent= opt.dataset.value === unitValue ? '✓' : '';
+            }
+        })
+        if(currentWeatherData){
+            updateCurrentWeather(currentWeatherData);
+            updateMetrics(currentWeatherData);
+            updateDailyForecast(currentWeatherData);
+            updateHourlyForecast(currentWeatherData.forecast.forecastday[0].hour);
+        }
+    })
+})
 
 //Add Listner
 navBtn.addEventListener('click', function(){
@@ -95,13 +126,19 @@ dropDownButton.addEventListener('click', function(){
 
 //Click Listner to Change Unit Measurement
 unitToggle.addEventListener('click', function(){
-    if(currentUnit === 'metric'){
-        currentUnit = 'imperial';
+    if(tempUnit === 'metric'){
+        tempUnit = 'imperial';
+        windSpeedUnit = 'imperial';
+        precipitationUnit = 'imperial'
         unitToggle.textContent  = 'Switch to Metric';
     } else{
-        currentUnit ='metric';
+        tempUnit ='metric';
+        windSpeedUnit = 'metric';
+        precipitationUnit = 'metric';
         unitToggle.textContent = 'Switch to Imperial'
     }
+
+    
     updateCurrentWeather(currentWeatherData);
     updateMetrics(currentWeatherData);
     updateDailyForecast(currentWeatherData);
