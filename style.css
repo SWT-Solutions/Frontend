@@ -432,7 +432,8 @@ img{
     top: calc(100% + 0.5rem);
     right: 0;
     width: 200px;
-    height: 100px;
+    height: 300px;
+    padding: 0.75rem 0.5rem;
     background-color: var(--color-neutral-800);
     border-radius: 0.5rem;
     
@@ -451,6 +452,7 @@ img{
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
+    padding: 0 0.5rem;
     
 }
 #unit-toggle:hover{
@@ -521,6 +523,101 @@ img{
 .unit-option:hover{
     background-color: var(--color-neutral-600);
 }
+
+
+
+/*No Result State*/
+.no-result-state{
+    display:none;
+    text-align: center; 
+    padding: 1.15rem;
+
+}
+
+.no-result-state p{
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    color: var(--color-neutral-0);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.no-result-state.active{
+    display:block;
+}
+
+.hidden{
+    display:none;
+}
+
+/*Error State*/
+.error-state{
+    display: none;
+    text-align: center;
+    padding: 2rem 1.15rem;
+}
+
+.error-state.active{
+    display:block;
+}
+.error-content{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.error-content img{
+    width: auto;
+    height: 3rem;
+}
+.error-content h2{
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    color: var(--color-neutral-0);
+    font-weight: 700;
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
+}
+.error-content p{
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    color: var(--color-neutral-200);
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.4em;
+    
+}
+
+.error-state.active{
+    display:block;
+}
+
+.retry-btn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--color-neutral-800);
+    border:none;
+    color: var(--color-neutral-0);
+    padding: 0.75rem 0.75rem;
+    border-radius: 0.5rem;
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    font-weight: 500;
+    gap: 0.5rem;
+    width:  fit-content;
+}
+
+
+.retry-btn img{
+    width: auto;
+    height: 1rem;
+
+}
+
+
+
 
 
 

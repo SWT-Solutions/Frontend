@@ -1,5 +1,6 @@
 //API Key and Base URL
-const API_KEY ='af02f5d4e836499494c73235261206';
+//const API_KEY ='af02f5d4e836499494c73235261206';
+const API_KEY = 'invalid_key';
 const BASE_URL = 'https://api.weatherapi.com/v1';
 
 let debounceTimer;
@@ -11,7 +12,6 @@ let currentWeatherData = null;
 //Search ELements
 const searchInput = document.querySelector('.search-section__input');
 const searchButton = document.querySelector('.search-button');
-
 //Weathercard Elements
 const cityName = document.querySelector('.weather-card__left h2');
 const weatherDate = document.querySelector('.weather-card__left p');
@@ -41,6 +41,17 @@ const unitToggle = document.querySelector('#unit-toggle');
 
 //Unit Option Elements
 const unitOptions = document.querySelectorAll('.unit-option');
+
+//no result state element
+const noResultState = document.querySelector('.no-result-state');
+const mainContent = document.querySelector('.main-content');
+
+//error state element
+const errorState = document.querySelector('.error-state');
+const retryButton = document.querySelector('.retry-button');
+//c
+const searchSection = document.querySelector('.search-section');
+const heroSection = document.querySelector('.hero');
 
 
 //addlistner to unit options
@@ -133,14 +144,22 @@ unitToggle.addEventListener('click', function(){
         precipitationUnit = 'metric';
         unitToggle.textContent = 'Switch to Imperial'
     }
-
-    
-    updateCurrentWeather(currentWeatherData);
-    updateMetrics(currentWeatherData);
-    updateDailyForecast(currentWeatherData);
-    updateHourlyForecast(currentWeatherData.forecast.forecastday[0].hour);
+    updateCheckMarks();
+    if(currentWeatherData){  
+        updateCurrentWeather(currentWeatherData);
+        updateMetrics(currentWeatherData);
+        updateDailyForecast(currentWeatherData);
+        updateHourlyForecast(currentWeatherData.forecast.forecastday[0].hour);
+    } 
 })
 
+//Retry Button incase of Network Failure click listner
+retryButton.addEventListener('click', function(){
+    const lastCity = searchInput.value.trim();
+    if(lastCity){
+        getWeather(lastCity)
+    }
+})
 
 //function  to fetch weeather data
 async function getWeather(city){
@@ -149,8 +168,16 @@ async function getWeather(city){
         const response = await fetch(url);
         const data = await response.json();
         currentWeatherData = data;
+        noResultState.classList.remove('active');
+        mainContent.classList.remove('hidden');
+        //rest logic to display data incase of network success
+        errorState.classList.remove('active');
+        searchSection.classList.add('hidden');
+        heroSection.classList.add('hidden');
         if (data.error){
-            throw new Error(data.error.message);
+            noResultState.classList.add('active');
+            mainContent.classList.add('hidden');
+            return;
         }
         updateCurrentWeather(data);
         updateMetrics(data);
@@ -160,6 +187,10 @@ async function getWeather(city){
     }    
     catch(error){
         console.error('Error fetching weather data:', error);
+        errorState.classList.add('active');
+        mainContent.classList.add('hidden');
+        searchSection.classList.add('hidden');
+        heroSection.classList.add('hidden');
     }
 }
 
@@ -338,15 +369,15 @@ async function fetchCitySuggestions(city) {
 //update checkmark
 function updateCheckMarks(){
     unitOptions.forEach((opt)=>{
-        const checkmark = document.querySelector('.checkmark');
+        const checkmark = opt.querySelector('.checkmark');
         if(opt.dataset.unit === 'temp'){  
-            checkmark.textContent = opt.dataset.value = tempUnit ? '✓' : '';
+            checkmark.textContent = opt.dataset.value === tempUnit ? '✓' : '';
         }
         if(opt.dataset.unit === 'wind'){
-            checkmark.textContent = opt.dataset.value = windSpeedUnit? '✓': '';
+            checkmark.textContent = opt.dataset.value === windSpeedUnit? '✓': '';
         }
         if(opt.dataset.unit === 'precipitation'){
-            checkmark.textContent = opt.dataset.value = precipitationUnit? '✓': '';
+            checkmark.textContent = opt.dataset.value === precipitationUnit? '✓': '';
         }
     })
 }

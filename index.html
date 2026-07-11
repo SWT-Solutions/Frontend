@@ -20,14 +20,14 @@
             <div class="unit-menu">
                 <div class="unit-item" id="unit-toggle">Switch to Imperial</div>
                 <p class ="unit-section-label">Temperature</p>
-                <div class = "unit-option" data-unit ="temp" data-value="metric">Celsius (°C)<span class ="Checkmark"></span></div>
-                <div class = "unit-option" data-unit ="temp" data-value="imperial">Fahrenheit (°F) <span class ="Checkmark"></span></div>
+                <div class = "unit-option" data-unit ="temp" data-value="metric">Celsius (°C)<span class ="checkmark"></span></div>
+                <div class = "unit-option" data-unit ="temp" data-value="imperial">Fahrenheit (°F) <span class ="checkmark"></span></div>
                 <p class ="unit-section-label">Wind Speed</p>
-                <div class = "unit-option" data-unit ="wind" data-value="metric">kph<span class ="Checkmark"></span></div>
-                <div class = "unit-option" data-unit ="wind" data-value="imperial">mph<span class ="Checkmark"></span></div>
+                <div class = "unit-option" data-unit ="wind" data-value="metric">kph<span class ="checkmark"></span></div>
+                <div class = "unit-option" data-unit ="wind" data-value="imperial">mph<span class ="checkmark"></span></div>
                 <p class ="unit-section-label">Precipitation</p>
-                <div class = "unit-option" data-unit ="precipitation" data-value="metric">Millimeters (mm)<span class ="Checkmark"></span></div>
-                <div class = "unit-option" data-unit ="precipitation" data-value="imperial">Inches (in)<span class ="Checkmark"></span></div>
+                <div class = "unit-option" data-unit ="precipitation" data-value="metric">Millimeters (mm)<span class ="checkmark"></span></div>
+                <div class = "unit-option" data-unit ="precipitation" data-value="imperial">Inches (in)<span class ="checkmark"></span></div>
             </div>
        </div>
        
@@ -47,6 +47,21 @@
             <button type="button" class="search-button" id="search-btn">Search</button>
         </div>
     </section>
+    <!--No Result State-->
+    <div class="no-result-state" id="no-result">
+        <p>No Search result found!</p>
+    </div>
+    <!--Something Went Wrong State--->
+    <div class="error-state" id="error-state">
+        <div class="error-content">
+            <img src="images/icon-error.svg" alt="Error">
+            <h2>Something went wrong</h2>
+            <p>We couldn't connect to the server(API error). Please try again in a few minutes.</p>
+            <button class="retry-btn" id="retry-btn"><img src="images/icon-retry.svg" alt="Retry">Retry</button>
+        </div>
+    </div>
+
+    <!--Main Content-->
     <div class="main-content">
         <div class="weather-left-content">
             <div class="weather-card">
