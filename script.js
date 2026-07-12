@@ -1,6 +1,7 @@
 //API Key and Base URL
 //const API_KEY ='af02f5d4e836499494c73235261206';
-const API_KEY = 'invalid_key';
+const API_KEY = 'af02f5d4e836499494c73235261206';
+//const API_KEY = 'invalid_test_key';
 const BASE_URL = 'https://api.weatherapi.com/v1';
 
 let debounceTimer;
@@ -54,6 +55,13 @@ const searchSection = document.querySelector('.search-section');
 const heroSection = document.querySelector('.hero');
 
 
+//suggestion List
+const searchSuggestion = document.querySelector('.search-suggestion');
+
+//search in progress
+const searchProgress = document.querySelector('.search-progress');
+
+
 //addlistner to unit options
 unitOptions.forEach(function(option){
     option.addEventListener('click', function(){
@@ -84,8 +92,6 @@ navBtn.addEventListener('click', function(){
     unitMenu.classList.toggle('active');
 });
 
-//suggestion List
-const searchSuggestion = document.querySelector('.search-suggestion');
 
 
 
@@ -163,22 +169,30 @@ retryButton.addEventListener('click', function(){
 
 //function  to fetch weeather data
 async function getWeather(city){
+    //show loading state
+    
     try{
         const url = `${BASE_URL}/forecast.json?key=${API_KEY}&q=${city}&days=7&aqi=no&alerts=no`;
         const response = await fetch(url);
         const data = await response.json();
-        currentWeatherData = data;
         noResultState.classList.remove('active');
         mainContent.classList.remove('hidden');
         //rest logic to display data incase of network success
         errorState.classList.remove('active');
-        searchSection.classList.add('hidden');
-        heroSection.classList.add('hidden');
-        if (data.error){
+        searchSection.classList.remove('hidden');
+        heroSection.classList.remove('hidden');
+        if (data.error ===1006){
             noResultState.classList.add('active');
             mainContent.classList.add('hidden');
-            return;
         }
+        else{
+        errorState.classList.add('active');
+        mainContent.classList.add('hidden');
+        searchSection.classList.add('hidden');
+        heroSection.classList.add('hidden');
+        }
+        return;
+        currentWeatherData = data;
         updateCurrentWeather(data);
         updateMetrics(data);
         updateDailyForecast(data);
@@ -328,14 +342,15 @@ function populateDropDown(data){
 
 //fetch city suggestions
 async function fetchCitySuggestions(city) {
+    searchProgress.classList.add('active');
     try{
         const url =`${BASE_URL}/search.json?key=${API_KEY}&q=${city}`;
         const response =  await fetch(url);
         const data = await response.json();
         //clear suggestions after response
-
+        searchProgress.classList.remove('active');
         searchSuggestion.innerHTML = '';
-        if (data.length === 0){
+        if (!Array.isArray(data) || data.length === 0){
             searchSuggestion.classList.remove('active');
             return;
         }
@@ -357,11 +372,13 @@ async function fetchCitySuggestions(city) {
 
 
         });
+        console.log('suggestions count:', searchSuggestion.children.length);
         searchSuggestion.classList.add('active');
         
 
     }
     catch(error){
+        searchProgress.classList.remove('active');
         console.error("Error Fetching Suggestions", error);
     }
 }
