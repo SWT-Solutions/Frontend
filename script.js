@@ -14,6 +14,7 @@ let currentWeatherData = null;
 const searchInput = document.querySelector('.search-section__input');
 const searchButton = document.querySelector('.search-button');
 //Weathercard Elements
+const weatherCard = document.querySelector('.weather-card');
 const cityName = document.querySelector('.weather-card__left h2');
 const weatherDate = document.querySelector('.weather-card__left p');
 const weatherIcon = document.querySelector('.weather-card__right img');
@@ -170,7 +171,7 @@ retryButton.addEventListener('click', function(){
 //function  to fetch weeather data
 async function getWeather(city){
     //show loading state
-    
+    showLoadingState();
     try{
         const url = `${BASE_URL}/forecast.json?key=${API_KEY}&q=${city}&days=7&aqi=no&alerts=no`;
         const response = await fetch(url);
@@ -184,7 +185,9 @@ async function getWeather(city){
         if (data.error ===1006){
             noResultState.classList.add('active');
             mainContent.classList.add('hidden');
+            
         }
+
         else{
         errorState.classList.add('active');
         mainContent.classList.add('hidden');
@@ -198,8 +201,10 @@ async function getWeather(city){
         updateDailyForecast(data);
         updateHourlyForecast(data.forecast.forecastday[0].hour);
         populateDropDown(data);
+    hideLoadingState();
     }    
     catch(error){
+        hideLoadingState();
         console.error('Error fetching weather data:', error);
         errorState.classList.add('active');
         mainContent.classList.add('hidden');
@@ -397,4 +402,26 @@ function updateCheckMarks(){
             checkmark.textContent = opt.dataset.value === precipitationUnit? '✓': '';
         }
     })
+}
+//show loading state
+function showLoadingState() {
+    mainContent.classList.remove('hidden');
+    noResultState.classList.remove('active');
+    errorState.classList.remove('active');
+    
+    weatherCard.innerHTML = `
+        <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <p style="text-align:center; color: var(--color-neutral-300); margin-top: 0.5rem;">Loading...</p>
+    `;
+    
+    feelsLikeValue.textContent = '—';
+    humidityValue.textContent = '—';
+    windValue.textContent = '—';
+    precipitationValue.textContent = '—';
+    forecastContainer.innerHTML = '';
+    hourlyForecastContainer.innerHTML = '';
 }
