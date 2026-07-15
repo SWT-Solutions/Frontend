@@ -425,3 +425,18 @@ function showLoadingState() {
     forecastContainer.innerHTML = '';
     hourlyForecastContainer.innerHTML = '';
 }
+function showLoadingState() {
+    mainContent.classList.remove('hidden');
+    weatherCard.classList.add('loading');
+    feelsLikeValue.textContent = '—';
+    humidityValue.textContent = '—';
+    windValue.textContent = '—';
+    precipitationValue.textContent = '—';
+    forecastContainer.innerHTML = '';
+    hourlyForecastContainer.innerHTML = '';
+}
+
+//hide loading state
+function hideLoadingState() {
+    weatherCard.classList.remove('loading');
+}
